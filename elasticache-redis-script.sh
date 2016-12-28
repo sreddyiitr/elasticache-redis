@@ -25,7 +25,7 @@ git clone ${git_clone_url} ${repo}
 wget ${parameter_file} -O terraform.properties
 
 export REDIS_CLUSTER_NAME=$(cat terraform.properties | grep '^[^#]' | grep elasticache_cluster_name | awk -F'\"' '{print $2}')
-export SECURITY_GROUP_IDS=$(cat terraform.properties | grep '^[^#]' | grep security_group_ids | awk -F'\"' '{print $2}')
+export SECURITY_GROUP_IDS=$(cat terraform.properties | grep '^[^#]' | grep security_group_ids | awk '{print $3}')
 echo ${REDIS_CLUSTER_NAME}
 echo ${SECURITY_GROUP_IDS}
 

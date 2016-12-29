@@ -53,7 +53,7 @@ export REDIS_CLOUDWATCH_ALARM_MEMORY_DESCRIPTION=$(cat terraform.properties | gr
 export REDIS_CLOUDWATCH_ALARM_MEMORY_COMPARISON=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_memory_alarm_comparison | awk -F'\"' '{print $2}')
 export REDIS_CLOUDWATCH_ALARM_MEMORY_EVALUATION=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_memory_alarm_evaluation | awk -F'\"' '{print $2}')
 export REDIS_CLOUDWATCH_ALARM_MEMORY_METRIC_NAME=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_memory_alarm_metric_name | awk -F'\"' '{print $2}')
-export REDIS_CLOUDWATCH_ALARM_MEMORY_AWS_EC=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_memory_alarm_namespace | awk -F'\"' '{print $2}')
+export REDIS_CLOUDWATCH_ALARM_MEMORY_AWS_EC=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_memory_alarm_awsnamespace | awk -F'\"' '{print $2}')
 export REDIS_CLOUDWATCH_ALARM_MEMORY_PERIOD=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_memory_alarm_period | awk -F'\"' '{print $2}')
 export REDIS_CLOUDWATCH_ALARM_MEMORY_STATISTIC=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_memory_alarm_statistic | awk -F'\"' '{print $2}')
 export REDIS_CLOUDWATCH_ALARM_MEMORY_THRESHOLD=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_memory_alarm_threshold | awk -F'\"' '{print $2}')
@@ -80,7 +80,7 @@ find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/SUBNE
 find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/MAINTENANCE_WINDOW/$MAINTENANCE_WINDOW/
 find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/ALERTS_SNS_TOPIC_NAME/$ALERTS_SNS_TOPIC_NAME/
 
-find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLOUDWATCH_ALARM_CPU_NAME/$REDIS_CLOUDWATCH_ALARM_CPU_NAME/
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLOUDWATCH_ALARM_NAME_CPU/$REDIS_CLOUDWATCH_ALARM_NAME_CPU/
 find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' "s/REDIS_CLOUDWATCH_ALARM_CPU_DESCRIPTION/$REDIS_CLOUDWATCH_ALARM_CPU_DESCRIPTION/"
 find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLOUDWATCH_ALARM_CPU_COMPARISON/$REDIS_CLOUDWATCH_ALARM_CPU_COMPARISON/
 find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLOUDWATCH_ALARM_CPU_EVALUATION/$REDIS_CLOUDWATCH_ALARM_CPU_EVALUATION/
@@ -91,7 +91,7 @@ find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS
 find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLOUDWATCH_ALARM_CPU_THRESHOLD/$REDIS_CLOUDWATCH_ALARM_CPU_THRESHOLD/
 find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLOUDWATCH_ALARM_CPU_SNS_TOPIC_NAME/$REDIS_CLOUDWATCH_ALARM_CPU_SNS_TOPIC_NAME/
 
-find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLOUDWATCH_ALARM_MEMORY_NAME/$REDIS_CLOUDWATCH_ALARM_MEMORY_NAME/
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLOUDWATCH_ALARM_NAME_MEMORY/$REDIS_CLOUDWATCH_ALARM_NAME_MEMORY/
 find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' "s/REDIS_CLOUDWATCH_ALARM_MEMORY_DESCRIPTION/$REDIS_CLOUDWATCH_ALARM_MEMORY_DESCRIPTION/"
 find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLOUDWATCH_ALARM_MEMORY_COMPARISON/$REDIS_CLOUDWATCH_ALARM_MEMORY_COMPARISON/
 find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLOUDWATCH_ALARM_MEMORY_EVALUATION/$REDIS_CLOUDWATCH_ALARM_MEMORY_EVALUATION/

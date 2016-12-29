@@ -13,7 +13,7 @@
 #cd $WORKSPACE
 
 whoami
-rm -Rf *
+#rm -Rf *
 
 #Set git token to test from local. This can be an input value in Jenkins job
 repo="git_template_repo"
@@ -25,17 +25,46 @@ git clone ${git_clone_url} ${repo}
 wget ${parameter_file} -O terraform.properties
 
 export REDIS_CLUSTER_NAME=$(cat terraform.properties | grep '^[^#]' | grep elasticache_cluster_name | awk -F'\"' '{print $2}')
+export REDIS_CLUSTER_DESCRIPTION=$(cat terraform.properties | grep '^[^#]' | grep elasticache_cluster_description | awk -F'\"' '{print $2}')
+export IS_AUTO_FAILOVER_ENABLED=$(cat terraform.properties | grep '^[^#]' | grep enable_automatic_failover | awk -F'\"' '{print $2}')
+export NUMBER_CACHE_CLUSTERS=$(cat terraform.properties | grep '^[^#]' | grep number_of_cache_clusters | awk -F'\"' '{print $2}')
+export AWS_NODE_TYPE=$(cat terraform.properties | grep '^[^#]' | grep node_type | awk -F'\"' '{print $2}')
+export REDIS_ENGINE_VERSION=$(cat terraform.properties | grep '^[^#]' | grep engine_version | awk -F'\"' '{print $2}')
+export REDIS_PARAMETER_GROUP=$(cat terraform.properties | grep '^[^#]' | grep parameter_group_name | awk -F'\"' '{print $2}')
+export SUBNET_GROUP_NAME=$(cat terraform.properties | grep '^[^#]' | grep sunbet_group_name | awk -F'\"' '{print $2}')
+export MAINTENANCE_WINDOW=$(cat terraform.properties | grep '^[^#]' | grep maintenance_window | awk -F'\"' '{print $2}')
+export ALERTS_SNS_TOPIC_NAME=$(cat terraform.properties | grep '^[^#]' | grep notification_topic_arn | awk -F'\"' '{print $2}')
 export SECURITY_GROUP_IDS=$(cat terraform.properties | grep '^[^#]' | grep security_group_ids | awk '{print $3}')
-echo ${REDIS_CLUSTER_NAME}
-echo ${SECURITY_GROUP_IDS}
+
+export REDIS_CLOUDWATCH_ALARM_NAME_CPU=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_cpu_utilization_alarm_name | awk -F'\"' '{print $2}')
+export REDIS_CLOUDWATCH_ALARM_CPU_DESCRIPTION=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_cpu_utilization_alarm_description | awk -F'\"' '{print $2}')
+export REDIS_CLOUDWATCH_ALARM_CPU_COMPARISON=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_cpu_utilization_alarm_comparison | awk -F'\"' '{print $2}')
+export REDIS_CLOUDWATCH_ALARM_CPU_EVALUATION=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_cpu_utilization_alarm_evaluation | awk -F'\"' '{print $2}')
+export REDIS_CLOUDWATCH_ALARM_CPU_METRIC_NAME=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_cpu_utilization_alarm_metric_name | awk -F'\"' '{print $2}')
+export REDIS_CLOUDWATCH_ALARM_CPU_AWS_EC=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_cpu_utilization_alarm_namespace | awk -F'\"' '{print $2}')
+export REDIS_CLOUDWATCH_ALARM_CPU_PERIOD=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_cpu_utilization_alarm_period | awk -F'\"' '{print $2}')
+export REDIS_CLOUDWATCH_ALARM_CPU_STATISTIC=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_cpu_utilization_alarm_statistic | awk -F'\"' '{print $2}')
+export REDIS_CLOUDWATCH_ALARM_CPU_THRESHOLD=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_cpu_utilization_alarm_threshold | awk -F'\"' '{print $2}')
+export REDIS_CLOUDWATCH_ALARM_CPU_SNS_TOPIC_NAME=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_cpu_utilization_alarm_sns_topic_name | awk -F'\"' '{print $2}')
+
+export REDIS_CLOUDWATCH_ALARM_NAME_MEMORY=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_memory_alarm_name | awk -F'\"' '{print $2}')
+export REDIS_CLOUDWATCH_ALARM_MEMORY_DESCRIPTION=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_memory_alarm_description | awk -F'\"' '{print $2}')
+export REDIS_CLOUDWATCH_ALARM_MEMORY_COMPARISON=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_memory_alarm_comparison | awk -F'\"' '{print $2}')
+export REDIS_CLOUDWATCH_ALARM_MEMORY_EVALUATION=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_memory_alarm_evaluation | awk -F'\"' '{print $2}')
+export REDIS_CLOUDWATCH_ALARM_MEMORY_METRIC_NAME=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_memory_alarm_metric_name | awk -F'\"' '{print $2}')
+export REDIS_CLOUDWATCH_ALARM_MEMORY_AWS_EC=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_memory_alarm_namespace | awk -F'\"' '{print $2}')
+export REDIS_CLOUDWATCH_ALARM_MEMORY_PERIOD=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_memory_alarm_period | awk -F'\"' '{print $2}')
+export REDIS_CLOUDWATCH_ALARM_MEMORY_STATISTIC=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_memory_alarm_statistic | awk -F'\"' '{print $2}')
+export REDIS_CLOUDWATCH_ALARM_MEMORY_THRESHOLD=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_memory_alarm_threshold | awk -F'\"' '{print $2}')
+export REDIS_CLOUDWATCH_ALARM_MEMORY_SNS_TOPIC_NAME=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_memory_alarm_sns_topic_name | awk -F'\"' '{print $2}')
+
+echo ${REDIS_CLUSTER_DESCRIPTION}
+#echo ${SECURITY_GROUP_IDS}
 
 cp ${repo}/elasticache-redis-template.tf elasticache-redis-current.tf
 
 #For OS/X, -i should be -i '' This needs to be replaced with -i for Jenkins
 # Sample - Replace variable with value
 find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLUSTER_NAME/$REDIS_CLUSTER_NAME/
-# Sample - Replace array variable with value
+#find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLUSTER_DESCRIPTION/$REDIS_CLUSTER_DESCRIPTION/
 find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/SECURITY_GROUP_IDS/$SECURITY_GROUP_IDS/
-
-
-

@@ -13,7 +13,7 @@
 #cd $WORKSPACE
 
 whoami
-#rm -Rf *
+rm -Rf *
 
 #Set git token to test from local. This can be an input value in Jenkins job
 repo="git_template_repo"
@@ -42,7 +42,7 @@ export REDIS_CLOUDWATCH_ALARM_CPU_DESCRIPTION=$(cat terraform.properties | grep 
 export REDIS_CLOUDWATCH_ALARM_CPU_COMPARISON=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_cpu_utilization_alarm_comparison | awk -F'\"' '{print $2}')
 export REDIS_CLOUDWATCH_ALARM_CPU_EVALUATION=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_cpu_utilization_alarm_evaluation | awk -F'\"' '{print $2}')
 export REDIS_CLOUDWATCH_ALARM_CPU_METRIC_NAME=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_cpu_utilization_alarm_metric_name | awk -F'\"' '{print $2}')
-export REDIS_CLOUDWATCH_ALARM_CPU_AWS_EC=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_cpu_utilization_alarm_namespace | awk -F'\"' '{print $2}')
+export REDIS_CLOUDWATCH_ALARM_CPU_AWS_EC=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_cpu_utilization_alarm_awsnamespace | awk -F'\"' '{print $2}')
 export REDIS_CLOUDWATCH_ALARM_CPU_PERIOD=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_cpu_utilization_alarm_period | awk -F'\"' '{print $2}')
 export REDIS_CLOUDWATCH_ALARM_CPU_STATISTIC=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_cpu_utilization_alarm_statistic | awk -F'\"' '{print $2}')
 export REDIS_CLOUDWATCH_ALARM_CPU_THRESHOLD=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_cpu_utilization_alarm_threshold | awk -F'\"' '{print $2}')
@@ -59,7 +59,8 @@ export REDIS_CLOUDWATCH_ALARM_MEMORY_STATISTIC=$(cat terraform.properties | grep
 export REDIS_CLOUDWATCH_ALARM_MEMORY_THRESHOLD=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_memory_alarm_threshold | awk -F'\"' '{print $2}')
 export REDIS_CLOUDWATCH_ALARM_MEMORY_SNS_TOPIC_NAME=$(cat terraform.properties | grep '^[^#]' | grep cloudwatch_memory_alarm_sns_topic_name | awk -F'\"' '{print $2}')
 
-echo ${REDIS_CLUSTER_DESCRIPTION}
+echo ${REDIS_CLOUDWATCH_ALARM_NAME_CPU}
+echo ${REDIS_CLOUDWATCH_ALARM_NAME_MEMORY}
 #echo ${SECURITY_GROUP_IDS}
 
 cp ${repo}/elasticache-redis-template.tf elasticache-redis-current.tf

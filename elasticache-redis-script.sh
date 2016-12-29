@@ -29,6 +29,7 @@ export REDIS_CLUSTER_DESCRIPTION=$(cat terraform.properties | grep '^[^#]' | gre
 export IS_AUTO_FAILOVER_ENABLED=$(cat terraform.properties | grep '^[^#]' | grep enable_automatic_failover | awk -F'\"' '{print $2}')
 export NUMBER_CACHE_CLUSTERS=$(cat terraform.properties | grep '^[^#]' | grep number_of_cache_clusters | awk -F'\"' '{print $2}')
 export AWS_NODE_TYPE=$(cat terraform.properties | grep '^[^#]' | grep node_type | awk -F'\"' '{print $2}')
+export REDIS_PORT=$(cat terraform.properties | grep '^[^#]' | grep elasticache_port | awk -F'\"' '{print $2}')
 export REDIS_ENGINE_VERSION=$(cat terraform.properties | grep '^[^#]' | grep engine_version | awk -F'\"' '{print $2}')
 export REDIS_PARAMETER_GROUP=$(cat terraform.properties | grep '^[^#]' | grep parameter_group_name | awk -F'\"' '{print $2}')
 export SUBNET_GROUP_NAME=$(cat terraform.properties | grep '^[^#]' | grep sunbet_group_name | awk -F'\"' '{print $2}')
@@ -66,5 +67,38 @@ cp ${repo}/elasticache-redis-template.tf elasticache-redis-current.tf
 #For OS/X, -i should be -i '' This needs to be replaced with -i for Jenkins
 # Sample - Replace variable with value
 find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLUSTER_NAME/$REDIS_CLUSTER_NAME/
-#find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLUSTER_DESCRIPTION/$REDIS_CLUSTER_DESCRIPTION/
 find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/SECURITY_GROUP_IDS/$SECURITY_GROUP_IDS/
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' "s/REDIS_CLUSTER_DESCRIPTION/$REDIS_CLUSTER_DESCRIPTION/"
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/IS_AUTO_FAILOVER_ENABLED/$IS_AUTO_FAILOVER_ENABLED/
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/NUMBER_CACHE_CLUSTERS/$NUMBER_CACHE_CLUSTERS/
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/AWS_NODE_TYPE/$AWS_NODE_TYPE/
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_PORT/$REDIS_PORT/
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_ENGINE_VERSION/$REDIS_ENGINE_VERSION/
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_PARAMETER_GROUP/$REDIS_PARAMETER_GROUP/
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/SUBNET_GROUP_NAME/$SUBNET_GROUP_NAME/
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/MAINTENANCE_WINDOW/$MAINTENANCE_WINDOW/
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/ALERTS_SNS_TOPIC_NAME/$ALERTS_SNS_TOPIC_NAME/
+
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLOUDWATCH_ALARM_CPU_NAME/$REDIS_CLOUDWATCH_ALARM_CPU_NAME/
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' "s/REDIS_CLOUDWATCH_ALARM_CPU_DESCRIPTION/$REDIS_CLOUDWATCH_ALARM_CPU_DESCRIPTION/"
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLOUDWATCH_ALARM_CPU_COMPARISON/$REDIS_CLOUDWATCH_ALARM_CPU_COMPARISON/
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLOUDWATCH_ALARM_CPU_EVALUATION/$REDIS_CLOUDWATCH_ALARM_CPU_EVALUATION/
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLOUDWATCH_ALARM_CPU_METRIC_NAME/$REDIS_CLOUDWATCH_ALARM_CPU_METRIC_NAME/
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' "s~REDIS_CLOUDWATCH_ALARM_CPU_AWS_EC~$REDIS_CLOUDWATCH_ALARM_CPU_AWS_EC~"
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLOUDWATCH_ALARM_CPU_PERIOD/$REDIS_CLOUDWATCH_ALARM_CPU_PERIOD/
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLOUDWATCH_ALARM_CPU_STATISTIC/$REDIS_CLOUDWATCH_ALARM_CPU_STATISTIC/
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLOUDWATCH_ALARM_CPU_THRESHOLD/$REDIS_CLOUDWATCH_ALARM_CPU_THRESHOLD/
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLOUDWATCH_ALARM_CPU_SNS_TOPIC_NAME/$REDIS_CLOUDWATCH_ALARM_CPU_SNS_TOPIC_NAME/
+
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLOUDWATCH_ALARM_MEMORY_NAME/$REDIS_CLOUDWATCH_ALARM_MEMORY_NAME/
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' "s/REDIS_CLOUDWATCH_ALARM_MEMORY_DESCRIPTION/$REDIS_CLOUDWATCH_ALARM_MEMORY_DESCRIPTION/"
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLOUDWATCH_ALARM_MEMORY_COMPARISON/$REDIS_CLOUDWATCH_ALARM_MEMORY_COMPARISON/
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLOUDWATCH_ALARM_MEMORY_EVALUATION/$REDIS_CLOUDWATCH_ALARM_MEMORY_EVALUATION/
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLOUDWATCH_ALARM_MEMORY_METRIC_NAME/$REDIS_CLOUDWATCH_ALARM_MEMORY_METRIC_NAME/
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' "s~REDIS_CLOUDWATCH_ALARM_MEMORY_AWS_EC~$REDIS_CLOUDWATCH_ALARM_MEMORY_AWS_EC~"
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLOUDWATCH_ALARM_MEMORY_PERIOD/$REDIS_CLOUDWATCH_ALARM_MEMORY_PERIOD/
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLOUDWATCH_ALARM_MEMORY_STATISTIC/$REDIS_CLOUDWATCH_ALARM_MEMORY_STATISTIC/
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLOUDWATCH_ALARM_MEMORY_THRESHOLD/$REDIS_CLOUDWATCH_ALARM_MEMORY_THRESHOLD/
+find . -name 'elasticache-redis-current.tf' -print0 | xargs -0 sed -i '' s/REDIS_CLOUDWATCH_ALARM_MEMORY_SNS_TOPIC_NAME/$REDIS_CLOUDWATCH_ALARM_MEMORY_SNS_TOPIC_NAME/
+
+
